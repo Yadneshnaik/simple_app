@@ -162,12 +162,6 @@ export default function ThunderMusic() {
 				<h1 className="text-2xl font-bold">🎵 Thunder Music</h1>
 			</header>
 
-			{/* Banner */}
-			<section className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-6 py-10">
-				<h2 className="text-3xl font-bold mb-2">🔥 New Songs</h2>
-				<p className="text-sm opacity-90">Just dropped! Tap to listen now.</p>
-			</section>
-
 			{/* Song List */}
 			<main className="px-6 py-6 space-y-4">
 				{songs.map((song) => (
