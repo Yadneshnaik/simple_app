@@ -27,6 +27,7 @@ const songs = [
 ];
 
 export default function Home() {
+	const [showWelcome, setShowWelcome] = useState(true);
 	const [darkMode, setDarkMode] = useState(false);
 	const [currentSong, setCurrentSong] = useState(null);
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -38,6 +39,7 @@ export default function Home() {
 	const progressRef = useRef(null);
 
 	useEffect(() => {
+		if (showWelcome) return;
 		const audio = audioRef.current;
 
 		const updateProgress = () => {
@@ -70,7 +72,7 @@ export default function Home() {
 			audio?.removeEventListener('loadedmetadata', handleLoadedMetadata);
 			window.removeEventListener('keydown', handleKeydown);
 		};
-	}, [currentSong]);
+	}, [currentSong, showWelcome]);
 
 	useEffect(() => {
 		if (audioRef.current) {
@@ -84,29 +86,28 @@ export default function Home() {
 	};
 
 	const handlePlay = (song) => {
-	if (currentSong?.id === song.id && isPlaying) {
-		audioRef.current.pause();
-		setIsPlaying(false);
-	} else {
-		setCurrentSong(song);
-		setIsPlaying(false);
+		if (currentSong?.id === song?.id && isPlaying) {
+			audioRef.current.pause();
+			setIsPlaying(false);
+		} else {
+			setCurrentSong(song);
+			setIsPlaying(false);
 
-		// Wait for audio to load before playing
-		setTimeout(() => {
-			const audio = audioRef.current;
-			if (!audio) return;
+			setTimeout(() => {
+				const audio = audioRef.current;
+				if (!audio) return;
 
-			audio.load(); // Force reload audio
-			audio.oncanplay = () => {
-				audio.play().then(() => {
-					setIsPlaying(true);
-				}).catch((err) => {
-					console.error("Error playing audio:", err);
-				});
-			};
-		}, 0);
-	}
-};
+				audio.load();
+				audio.oncanplay = () => {
+					audio.play().then(() => {
+						setIsPlaying(true);
+					}).catch((err) => {
+						console.error("Error playing audio:", err);
+					});
+				};
+			}, 0);
+		}
+	};
 
 	const handlePrev = () => {
 		if (!currentSong) return;
@@ -155,20 +156,30 @@ export default function Home() {
 		return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 	};
 
+	// Welcome Page
+	if (showWelcome) {
+		return (
+			<div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-200 to-purple-300 dark:from-gray-900 dark:to-gray-800 transition-all">
+				<h1 className="text-4xl font-bold mb-4 text-blue-900 dark:text-white">Welcome to Thunder Music</h1>
+				<p className="mb-8 text-lg text-gray-700 dark:text-gray-300">Enjoy your favorite songs with a Thunder Music.</p>
+				<button
+					onClick={() => setShowWelcome(false)}
+					className="px-6 py-3 bg-blue-600 text-white rounded-lg text-lg shadow hover:bg-blue-700 transition"
+				>
+					Start Listening
+				</button>
+			</div>
+		);
+	}
+
+	// Music Page
 	return (
 		<div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-all pb-28">
 			<div className="p-6 flex justify-between items-center">
-				<h1 className="text-2xl font-bold">🎵 Music Player</h1>
-				<button
-					onClick={toggleDark}
-					className="px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded text-sm"
-				>
-					{darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
-				</button>
+				<h1 className="text-2xl font-bold">🎵 Thunder Music</h1>
 			</div>
 
 			<div className="px-6">
-				<h2 className="text-xl font-semibold mb-4">🎧 Your Songs</h2>
 				<ul className="space-y-4">
 					{songs.map((song) => (
 						<li
