@@ -22,6 +22,20 @@ const songs = [
 		title: 'Sultan',
 		artist: 'Ravi Basrur',
 		url: '/audio/Sultan.mp3',
+		image: '/images/kgf.jpg',
+	},
+	{
+		id: 4,
+		title: 'Sultan',
+		artist: 'Vishal',
+		url: '/audio/Sultan (1).mp3',
+		image: '/images/sultan.jpg',
+	},
+	{
+		id: 5,
+		title: 'Rise of Sultan',
+		artist: 'Vishal',
+		url: '/audio/Rise-of-Sultan.mp3',
 		image: '/images/sultan.jpg',
 	},
 ];
