@@ -5,17 +5,17 @@ import { useState, useRef, useEffect } from 'react';
 const songs = [
 	{
 		id: 1,
-		title: 'Hale Dil',
-		artist: 'Murder 2 - Harshit Saxena',
-		url: '/audio/Hale Dil.mp3',
-		image: '/images/hale-dil.jpg',
+		title: 'malhari',
+		artist: 'bajirao mastani - Vishal',
+		url: '/audio/Malhari.mp3',
+		image: '/images/bajirao-mastani.jpg',
 	},
 	{
 		id: 2,
-		title: 'Phir Mohabbat',
-		artist: 'Murder 2 - Arijit Singh',
-		url: '/audio/Phir Mohabbat.mp3',
-		image: '/images/phir-mohabbat.jpg',
+		title: 'Zinda',
+		artist: 'Bhaag Milkha Bhaag - Shankar Mahadevan',
+		url: '/audio/Zinda.mp3',
+		image: '/images/Bhaag-Milkha-Bhaag.jpg',
 	},
 	{
 		id: 3,
@@ -38,6 +38,13 @@ const songs = [
 		url: '/audio/Rise-of-Sultan.mp3',
 		image: '/images/sultan.jpg',
 	},
+	{
+		id: 6,
+		title: 'Kar Har Maidaan Fateh',
+		artist: 'Sukhwinder Singh, Shreya Ghoshal',
+		url: '/audio/Kar-Har-Maidaan-Fateh.mp3',
+		image: '/images/sanju.jpg',
+	},
 ];
 
 export default function ThunderMusic() {
@@ -49,7 +56,6 @@ export default function ThunderMusic() {
 	const [duration, setDuration] = useState(0);
 
 	const audioRef = useRef(null);
-	const progressRef = useRef(null);
 
 	// Setup audio event listeners
 	useEffect(() => {
@@ -141,9 +147,10 @@ export default function ThunderMusic() {
 		return `${m}:${s < 10 ? '0' : ''}${s}`;
 	};
 
+	// Welcome Page
 	if (showWelcome) {
 		return (
-			<div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-400 to-purple-500 text-white text-center">
+			<div className="min-h-screen h-auto flex flex-col items-center justify-center bg-gradient-to-br from-indigo-400 to-purple-500 text-white text-center">
 				<h1 className="text-5xl font-extrabold mb-4">Thunder Music</h1>
 				<p className="text-xl mb-6">Feel the vibe of music you love!</p>
 				<button
@@ -156,14 +163,15 @@ export default function ThunderMusic() {
 		);
 	}
 
+	// Music Page
 	return (
-		<div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+		<div className="min-h-screen h-auto bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white flex flex-col">
 			<header className="p-6 flex justify-between items-center bg-white dark:bg-gray-800 shadow">
 				<h1 className="text-2xl font-bold">🎵 Thunder Music</h1>
 			</header>
 
 			{/* Song List */}
-			<main className="px-6 py-6 space-y-4">
+			<main className="flex-1 px-6 py-6 space-y-4">
 				{songs.map((song) => (
 					<div key={song.id} className="flex justify-between items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
 						<div className="flex items-center gap-4">
@@ -185,7 +193,7 @@ export default function ThunderMusic() {
 
 			{/* Music Controls */}
 			{currentSong && (
-				<footer className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-lg px-6 py-4">
+				<footer className="w-full bg-white dark:bg-gray-800 shadow-lg px-6 py-4">
 					<div className="flex flex-col md:flex-row items-center justify-between gap-4">
 						{/* Song Info */}
 						<div className="flex items-center gap-4 w-full md:w-auto">
@@ -238,17 +246,17 @@ export default function ThunderMusic() {
 			)}
 
 			<style jsx>{`
-				.btn {
-					padding: 0.5rem;
-					background: #4b5563;
-					color: white;
-					border-radius: 0.375rem;
-					transition: all 0.2s ease-in-out;
-				}
-				.btn:hover {
-					transform: scale(1.05);
-				}
-			`}</style>
+                .btn {
+                    padding: 0.5rem;
+                    background: #4b5563;
+                    color: white;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                }
+                .btn:hover {
+                    transform: scale(1.05);
+                }
+            `}</style>
 		</div>
 	);
 }
